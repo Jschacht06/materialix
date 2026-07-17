@@ -77,11 +77,11 @@ npm run lint      # lint with oxlint
 `npm run build` produces a fully static site in `dist/` — there is no backend,
 so any static host works:
 
+- **GitHub Pages** (how this repo does it): every push to `main` triggers
+  [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds
+  the site and publishes it automatically.
 - **Netlify / Cloudflare Pages / Vercel**: point the build command at
   `npm run build` and the output directory at `dist`.
-- **GitHub Pages**: works great; if the site is served from
-  `https://<user>.github.io/materialix/` (a project page), set
-  `base: '/materialix/'` in [`vite.config.ts`](vite.config.ts) first.
 - **Your own server**: copy `dist/` behind any web server that can serve
   static files.
 

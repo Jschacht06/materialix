@@ -36,5 +36,8 @@ function injectCsp(): PluginOption {
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Relative asset paths so the build works at any URL, including GitHub
+  // Pages project sites like https://<user>.github.io/materialix/
+  base: './',
   plugins: [react(), injectCsp()],
 })
