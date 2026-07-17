@@ -7,11 +7,8 @@
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
-![No backend](https://img.shields.io/badge/backend-none%20%F0%9F%8E%89-6fbf4f)
 
-<!-- Add a screenshot: drop an image in e.g. docs/screenshot.png and uncomment:
-![Materialix screenshot](docs/screenshot.png)
--->
+[![Try it live](https://img.shields.io/badge/%E2%96%B6%C2%A0%C2%A0TRY%20IT%20LIVE-6fbf4f?style=for-the-badge&logoColor=white)](https://jschacht06.github.io/materialix/)
 
 ## About
 
