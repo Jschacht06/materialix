@@ -15,14 +15,9 @@
 
 ## About
 
-Materialix started as a personal itch: gathering materials for a big Litematica
-build means juggling a long list of blocks, and doing that from a raw JSON
-export or a chat printout is miserable. This turns that export into a proper
-interactive checklist — with stack math done for you.
-
 This project is **fully vibecoded with [Claude Fable 5](https://www.anthropic.com/news/claude-fable-5-mythos-5)** —
 every line of code, the design, and this README were written by AI under human
-direction. It exists purely for ease of use, and it does that job well.
+direction. It exists purely for ease of use.
 
 ## Features
 
@@ -55,8 +50,7 @@ that produces the same JSON shape). Materialix only needs two fields per entry:
 }
 ```
 
-Extra fields like `Missing`, `Mismatched`, and `Available` are ignored — you're
-the one holding the pickaxe, after all. A full example lives in
+Extra fields like `Missing`, `Mismatched`, and `Available` are ignored. A full example lives in
 [`sample-data/material_list_example.json`](sample-data/material_list_example.json).
 
 ## Running locally
