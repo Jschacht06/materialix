@@ -34,6 +34,18 @@ export function saveList(list: MaterialList): void {
   writeJson(LISTS_KEY, lists.slice(0, MAX_SAVED_LISTS))
 }
 
+export function findList(id: string): MaterialList | undefined {
+  return loadSavedLists().find((l) => l.id === id)
+}
+
+/** Renames in place, keeping the list's position in the recents. */
+export function renameList(id: string, name: string): void {
+  writeJson(
+    LISTS_KEY,
+    loadSavedLists().map((l) => (l.id === id ? { ...l, name, renamed: true } : l)),
+  )
+}
+
 export function deleteList(id: string): void {
   writeJson(
     LISTS_KEY,

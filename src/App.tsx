@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { MaterialList } from './lib/types'
-import { saveList, loadProgress, saveProgress } from './lib/storage'
+import { saveList, findList, renameList, loadProgress, saveProgress } from './lib/storage'
 import UploadScreen from './components/UploadScreen'
 import TrackerScreen from './components/TrackerScreen'
 
@@ -9,9 +9,18 @@ export default function App() {
   const [checked, setChecked] = useState<Set<string>>(new Set())
 
   const openList = (next: MaterialList) => {
-    saveList(next)
-    setChecked(loadProgress(next.id))
-    setList(next)
+    // Re-uploading a file whose list was renamed keeps the user's name.
+    const saved = findList(next.id)
+    const opened = saved?.renamed ? { ...next, name: saved.name, renamed: true } : next
+    saveList(opened)
+    setChecked(loadProgress(opened.id))
+    setList(opened)
+  }
+
+  const rename = (name: string) => {
+    if (!list) return
+    renameList(list.id, name)
+    setList({ ...list, name, renamed: true })
   }
 
   const toggle = (item: string) => {
@@ -55,6 +64,7 @@ export default function App() {
             list={list}
             checked={checked}
             onToggle={toggle}
+            onRename={rename}
             onReset={resetProgress}
             onBack={() => setList(null)}
           />

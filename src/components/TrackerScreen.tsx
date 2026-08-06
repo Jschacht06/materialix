@@ -5,18 +5,30 @@ import ItemIcon from './ItemIcon'
 
 type SortMode = 'count' | 'name'
 
+const MAX_NAME_LENGTH = 80
+
 interface Props {
   list: MaterialList
   checked: Set<string>
   onToggle: (item: string) => void
+  onRename: (name: string) => void
   onReset: () => void
   onBack: () => void
 }
 
-export default function TrackerScreen({ list, checked, onToggle, onReset, onBack }: Props) {
+export default function TrackerScreen({
+  list,
+  checked,
+  onToggle,
+  onRename,
+  onReset,
+  onBack,
+}: Props) {
   const [query, setQuery] = useState('')
   const [hideDone, setHideDone] = useState(false)
   const [sort, setSort] = useState<SortMode>('count')
+  const [editingName, setEditingName] = useState(false)
+  const [draftName, setDraftName] = useState(list.name)
 
   const totalBlocks = useMemo(
     () => list.materials.reduce((sum, m) => sum + m.total, 0),
@@ -52,11 +64,47 @@ export default function TrackerScreen({ list, checked, onToggle, onReset, onBack
     if (window.confirm('Uncheck everything and start over?')) onReset()
   }
 
+  const startRenaming = () => {
+    setDraftName(list.name)
+    setEditingName(true)
+  }
+
+  const commitName = () => {
+    const trimmed = draftName.trim()
+    if (trimmed && trimmed !== list.name) onRename(trimmed)
+    setEditingName(false)
+  }
+
   return (
     <div className="tracker">
       <div className="tracker-head">
         <div className="tracker-title">
-          <h2 title={list.name}>{list.name}</h2>
+          {editingName ? (
+            <input
+              className="name-input"
+              value={draftName}
+              maxLength={MAX_NAME_LENGTH}
+              autoFocus
+              aria-label="List name"
+              onChange={(e) => setDraftName(e.target.value)}
+              onBlur={commitName}
+              onFocus={(e) => e.target.select()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') commitName()
+                if (e.key === 'Escape') setEditingName(false)
+              }}
+            />
+          ) : (
+            <button className="name-btn" onClick={startRenaming} title="Click to rename">
+              <h2>{list.name}</h2>
+              <svg className="pencil" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                />
+              </svg>
+            </button>
+          )}
           <div className="tracker-actions">
             <button className="btn" onClick={handleReset}>
               Reset progress
