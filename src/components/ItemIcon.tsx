@@ -5,7 +5,7 @@ import { itemColor } from '../lib/format'
 // blocks like stairs, chests, and beds). Newest version first; older versions
 // cover items that may have been renamed. Unknown items 404 and we fall back
 // to a color swatch.
-const ICON_VERSIONS = ['1.21.11', '1.21.4']
+const ICON_VERSIONS = ['1.26.2', '1.21.4']
 
 function iconUrl(itemId: string, version: string): string {
   // Encode so hostile item ids in an uploaded file can't alter the URL
